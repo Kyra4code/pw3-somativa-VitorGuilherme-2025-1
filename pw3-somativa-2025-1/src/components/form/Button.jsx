@@ -1,6 +1,6 @@
 import styles from "./button.module.css";
 
-const Button = ({title}) =>{
+const Button = ({title, click}) =>{
 
     // function saveBooks(){
     //     console.log("Olá mundo")
@@ -10,7 +10,7 @@ const Button = ({title}) =>{
 
     return(
         <div>
-            <button>{title}</button>
+            <button onClick={click}>{title}</button>
         </div>
     );
 }

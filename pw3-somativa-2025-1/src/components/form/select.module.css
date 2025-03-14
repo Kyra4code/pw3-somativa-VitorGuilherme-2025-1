@@ -24,5 +24,6 @@
 .form_control select:hover{
     border-style:solid;
     border-color: black;
-    font-weight: bold; 
+    font-weight: bold;
+    cursor: pointer;
 }
