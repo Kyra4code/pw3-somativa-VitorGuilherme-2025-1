@@ -1,5 +1,5 @@
 //Classes
-import {React, useState} from "react";
+import React,{useState, useEffect} from "react";
 import style from "./createBook.module.css";
 
 //Objetos
@@ -12,6 +12,8 @@ const CreateBook = () => {
     /* CRIA A ESTRUTURA DE STATE PARA OS DADDOS DE LIVRO*/
 
     const [livro, setLivro] = useState({});
+
+    const [categories, setCategories] = useState({});
 
     function salvarInput(event){
         setLivro({...livro, [event.target.name] : event.target.value});
@@ -26,6 +28,44 @@ const CreateBook = () => {
     function submit(event){
         event.preventDefault();
         console.log(livro)
+    }
+
+    useEffect(()=>{
+            fetch("http://127.0.0.1:5000/listagemCateorias", {
+                method: "GET",
+                headers: {
+                    "Content-Type":"application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Headers": "*"
+                }
+            }).then((resp)=>
+                resp.json()
+            ).then((categorias)=>{
+                console.log(categorias.data)
+                setCategories(categorias.data)
+            }).catch((error)=>{
+                console.log("ERROR: " + error)
+            })
+  
+    },[])
+
+    function insertBook(){
+        fetch("http://127.0.0.1:5000/inserirLivro", {
+            method: "POST",
+            mode:'cors',
+            headers: {
+                "Content-Type":"application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
+            },
+            body: JSON.stringify(livro)
+        }).then((resp)=>
+            resp.json()
+        ).then((res)=>{
+            console.log("Response: " + res)
+        }).catch((error)=>{
+            console.log("ERROR: " + error)
+        })
     }
 
     return(
@@ -62,11 +102,12 @@ const CreateBook = () => {
                 id="slc_categorias"
                 text="Categorias do livro: "
                 change={salvarSelect}
+                opcoes={categories}
             />
 
             <Button
                 title="salvar"
-                click={submit}
+                click={insertBook}
             />
 
         </section>

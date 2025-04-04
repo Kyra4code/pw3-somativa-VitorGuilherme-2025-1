@@ -1,6 +1,6 @@
 import styles from "./select.module.css"
 
-const Select = ({text, name, id, change}) => {
+const Select = ({text, name, id, change, opcoes}) => {
     return(
         <div className={styles.form_control}>
 
@@ -8,15 +8,11 @@ const Select = ({text, name, id, change}) => {
 
             <select name={name} id={id} onChange={change}>
 
-                <option value=""> Selecione uma categoria</option>
+                <option value="0"> Selecione uma categoria</option>
 
-                <option value="">Ficção cientifica</option>
-
-                <option value="">Fantasia Heróica</option>
-
-                <option value="">Suspense</option>
-
-                <option value="">Terror</option>
+                {opcoes.map((option)=>{
+                    <option value={option.cod_categoria}></option>
+                })}
 
             </select>
 
