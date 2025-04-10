@@ -1,6 +1,6 @@
 import styles from "./select.module.css"
 
-const Select = ({text, name, id, change, opcoes}) => {
+const Select = ({text, name, id, change, options}) => {
     return(
         <div className={styles.form_control}>
 
@@ -10,9 +10,9 @@ const Select = ({text, name, id, change, opcoes}) => {
 
                 <option value="0"> Selecione uma categoria</option>
 
-                {opcoes.map((option)=>{
-                    <option value={option.cod_categoria}></option>
-                })}
+                {options.map((option)=>(
+                    <option value={option.cod_categoria} id={option.id_categoria}>{option.nome_categoria}</option>
+                ))}
 
             </select>
 

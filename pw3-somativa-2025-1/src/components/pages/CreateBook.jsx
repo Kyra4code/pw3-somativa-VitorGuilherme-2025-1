@@ -13,7 +13,7 @@ const CreateBook = () => {
 
     const [livro, setLivro] = useState({});
 
-    const [categories, setCategories] = useState({});
+    const [categories, setCategories] = useState([]);
 
     function salvarInput(event){
         setLivro({...livro, [event.target.name] : event.target.value});
@@ -31,7 +31,7 @@ const CreateBook = () => {
     }
 
     useEffect(()=>{
-            fetch("http://127.0.0.1:5000/listagemCateorias", {
+            fetch("http://localhost:5000/listarCat", {
                 method: "GET",
                 headers: {
                     "Content-Type":"application/json",
@@ -43,14 +43,11 @@ const CreateBook = () => {
             ).then((categorias)=>{
                 console.log(categorias.data)
                 setCategories(categorias.data)
-            }).catch((error)=>{
-                console.log("ERROR: " + error)
-            })
-  
-    },[])
+            }).catch((error)=>{console.log(error)})
+            },[])
 
     function insertBook(){
-        fetch("http://127.0.0.1:5000/inserirLivro", {
+        fetch("http://localhost:5000/inserirLivro", {
             method: "POST",
             mode:'cors',
             headers: {
@@ -102,7 +99,7 @@ const CreateBook = () => {
                 id="slc_categorias"
                 text="Categorias do livro: "
                 change={salvarSelect}
-                opcoes={categories}
+                options={categories}
             />
 
             <Button
