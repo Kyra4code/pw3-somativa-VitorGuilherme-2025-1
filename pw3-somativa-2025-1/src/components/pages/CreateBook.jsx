@@ -1,5 +1,6 @@
 //Classes
-import React,{useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import style from "./createBook.module.css";
 
 //Objetos
@@ -15,13 +16,15 @@ const CreateBook = () => {
 
     const [categories, setCategories] = useState([]);
 
+    const navigate = useNavigate();
+
     function salvarInput(event){
         setLivro({...livro, [event.target.name] : event.target.value});
         console.log(livro);
     }
 
     function salvarSelect(event){
-        setLivro({...livro, "categoria": event.target.options[event.target.selectedIndex].text})
+        setLivro({...livro, cod_categoria: event.target.options[event.target.selectedIndex].value,"categoria": event.target.options[event.target.selectedIndex].text})
         console.log(livro)
     }
     
@@ -46,6 +49,7 @@ const CreateBook = () => {
             }).catch((error)=>{console.log(error)})
             },[])
 
+
     function insertBook(){
         fetch("http://localhost:5000/inserirLivro", {
             method: "POST",
@@ -60,6 +64,7 @@ const CreateBook = () => {
             resp.json()
         ).then((res)=>{
             console.log("Response: " + res)
+            navigate('/listBook');
         }).catch((error)=>{
             console.log("ERROR: " + error)
         })
@@ -71,32 +76,32 @@ const CreateBook = () => {
             <h1>Cadastro de livro: </h1>
 
             <Input type="text"
-                name="txt_livro"
-                id="txt_livro"
+                name="nome_livro"
+                id="nome_livro"
                 placeholder="Digite o livro desejado: "
                 change={salvarInput}
                 text="Crie um livro: "
             />
 
             <Input type="text"
-                name="txt_autor"
-                id="txt_livro"
+                name="autor_livro"
+                id="autor_livro"
                 placeholder="Digite o nome do autor: "
                 change={salvarInput}
                 text="Coloque o nome do autor: "
             />
 
             <Input type="text"
-                name="txt_descricao"
-                id="txt_livro"
+                name="descricao_livro"
+                id="descricao_livro"
                 placeholder="Digite a descrição do livro escolhido: "
                 change={salvarInput}
                 text="Insira a descrição do livro: "
             />
 
             <Select
-                name="slc_categorias"
-                id="slc_categorias"
+                name="cod_categoria"
+                id="cod_categoria"
                 text="Categorias do livro: "
                 change={salvarSelect}
                 options={categories}
