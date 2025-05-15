@@ -29,8 +29,13 @@ const BookCards = ({cod_livro, nome_livro, autor_livro, imagem})=>{
 
             <img src={imagem} alt='Uma imagem' className={style.imagem}/>
 
-            <Button label="Detalhe"/>
-            <Button label="Excluir" onPress={DeleteBook}/>
+            <Button 
+                label="Detalhe"
+                router={'/detailBook/'}
+                cod_livro={cod_livro}
+            />
+
+            <Button label="Excluir"/>
             
         </div>
     )
