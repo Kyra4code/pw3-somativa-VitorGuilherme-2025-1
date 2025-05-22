@@ -6,6 +6,7 @@ import Home from './components/pages/Home.jsx';
 import CreateBook from './components/pages/CreateBook.jsx';
 import ListBook from './components/pages/ListBook.jsx';
 import DetailBook from './components/pages/DetailBook.jsx';
+import UpdateBooks from './components/pages/UpdateBooks.jsx';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
                 <Route path='/newBook' element={<CreateBook/>}/>
                 <Route path='/listBook' element={<ListBook/>}/>
                 <Route path='/detailBook/:cod_livro' element={<DetailBook/>}/>
-
+                <Route path='/updateBook/:cod_livro' element={<UpdateBooks/>}/>
+                
               </Route>
             </Routes>
 

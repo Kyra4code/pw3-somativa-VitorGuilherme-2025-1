@@ -109,7 +109,7 @@ const CreateBook = () => {
 
             <Button
                 title="salvar"
-                click={insertBook}
+                onPress={insertBook}
             />
 
         </section>
